@@ -40,4 +40,27 @@ foreach(range(1, 10) as $val1) {
     }
 }
 
+
+
+
 _dc($mas);
+
+$m1 = [];
+foreach(range(1, 10) as $val1) {
+    do {
+        $reiksme = rand(1, 10);
+    } while(in_array($reiksme, $m1));
+    $m1[] = $reiksme;
+}
+
+_dc($m1);
+
+$v = 'Summer';
+$p =  'Glau';
+
+if (strlen($v) > strlen($p)) {
+    echo $p;
+}
+else {
+    echo $v;
+}
