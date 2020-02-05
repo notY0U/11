@@ -30,3 +30,14 @@ foreach(range('A','Z') as $val){
 
 
 print_r(range('A','G')[3]);
+
+
+$mas = [];
+$c = 0;
+foreach(range(1, 10) as $val1) {
+    foreach(range(1, 5) as $val2) {
+        $mas[$val1][$val2] = $c++;
+    }
+}
+
+_dc($mas);
