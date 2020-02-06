@@ -24,7 +24,6 @@ foreach(range(1, rand(2, 5)) as $val) {
     $masyvas = add($masyvas);
 }
 
-// _dc($masyvas);
 
 
 
@@ -33,39 +32,46 @@ foreach(range(1, rand(2, 5)) as $val) {
 
 
 
-function rand_arr()
+
+
+
+//Refraktorintas 67 variantas. Funkcinio programavimo PVZ
+
+function re(&$arr, $count, $range)
 {
-    $m = [];
-    foreach(range(0, rand(2, 3)) as $val) {
-        $m[] = rand(0, 10);
-    }
-    $m[count($m)-1] = 0;
-    return $m;
-}
-
-
-function re(&$arr)
-{
-    static $flag;
+    static $flag, $rand_arr;
+    $rand_arr = function() use ($range) {
+        $m = [];
+        foreach(range(1, rand(1, $range)) as $val) {
+            $m[$val] = rand(0, 10);
+        }
+        $m[count($m)] = 0;
+        return $m;
+    };
     $flag = 1;
-    foreach($arr as $key => &$val) {
+    if (!is_array($arr)) {
+        $arr = $rand_arr();
+    }
+    foreach($arr as &$val) {
         if (is_array($val)) {
-            re($val);
+            re($val, $count, $range);
         }
     }
     if (!$flag) {
         return;
     }
     $flag = 0;
-    $val = rand_arr();
+    $val = $rand_arr();
+    if(--$count) {
+        re($arr, $count, $range);
+    }
 }
 
 
-$masyvas = rand_arr();
-foreach(range(1, rand(5, 5)) as $val) {
-    re($masyvas);
-}
+// 5 -> masyvu skaicius
+// 4 -> masyvo dydis
 
-
+$masyvas=null;
+re($masyvas, 5, 40);
 _dc($masyvas);
 
