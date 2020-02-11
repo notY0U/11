@@ -72,6 +72,6 @@ function re(&$arr, $count, $range)
 // 4 -> masyvo dydis
 
 $masyvas=null;
-re($masyvas, 5, 40);
+re($masyvas, 5, 4);
 _dc($masyvas);
 
