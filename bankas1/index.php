@@ -13,8 +13,7 @@ elseif ($_GET['action'] == 'new_user') {
     require DIR.'views/new.php';
 }
 elseif ($_GET['action'] == 'save_user') {
-    saveUser();
-    header('Location: '.URL);
+    header(saveUser());
     die();
 }
 

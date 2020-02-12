@@ -2,7 +2,7 @@
 require __DIR__ . '/header.php';
 ?>
 <h1 style="color:yellow;">Bankas. Klientų sąrašas.</h1>
-<table>
+<table class="table">
 <tr>
 <th>Vardas</th>
 <th>Pavardė</th>

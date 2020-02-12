@@ -16,11 +16,28 @@ function setData(array $arr)
 function saveUser()
 {
     $db = getData();
+    $error = false;
+    $msg = '';
 
     $pc = $_POST['pc'] ?? 0;
 
-    $db[$pc]['name'] = $_POST['firstname'] ?? '';
-    $db[$pc]['lastname'] = $_POST['lastname'] ?? '';
+        if (name_validator($_POST['firstname'])) {
+            $db[$pc]['name'] = $_POST['firstname'];
+        }
+        else {
+            $error = true;
+            $msg .= ' Blogas vardas. ';
+        }
+
+        if (name_validator($_POST['lastname'])) {
+            $db[$pc]['lastname'] = $_POST['lastname'];
+        }
+        else {
+            $error = true;
+            $msg .= ' Bloga pavardė. ';
+        }
+
+
     $db[$pc]['acc'] = 12345678;
 
     if (isset($db[$pc]['amount'])) {
@@ -29,8 +46,19 @@ function saveUser()
     else {
         $db[$pc]['amount'] = 0;
     }
-    setData($db);
-    set_msg('Userio duomenys įrašyti', 'success');
+
+
+    if ($error) {
+        set_msg($msg, 'warning');
+        flash();
+        return 'Location: '.URL.'?action=new_user';
+    }
+    else{
+        setData($db);
+        set_msg('Userio duomenys įrašyti', 'success');
+        return 'Location: '.URL;
+    }
+
 }
 
 function add()
@@ -56,7 +84,7 @@ function remove()
             set_msg('Iš Vartotojo <b>'. $db[$_GET['user']]['name'].'</b> atimta '.$_POST['amount'].' pinigų', 'success');
         }
         else {
-            set_msg('Vartotojas <b>'. $db[$_GET['user']]['name'].'</b> neturi pakankamai pinigų. Neatimta '.$_POST['amount'].' pinigų', 'error');
+            set_msg('Vartotojas <b>'. $db[$_GET['user']]['name'].'</b> neturi pakankamai pinigų. Neatimta '.$_POST['amount'].' pinigų', 'warning');
         }
 
 
@@ -72,7 +100,7 @@ function deleteUser()
     $db = getData();
     if (isset($db[$_GET['user']])) {
         if ($db[$_GET['user']]['amount'] > 0) {
-            set_msg('Vartotojas <b>'. $db[$_GET['user']]['name'].'</b> Turi pinigų. Negalim trinti', 'error');
+            set_msg('Vartotojas <b>'. $db[$_GET['user']]['name'].'</b> Turi pinigų. Negalim trinti', 'danger');
         }
         else {
             set_msg('Vartotojas <b>'. $db[$_GET['user']]['name'].'</b> sėkmingai ištrintas', 'success');
