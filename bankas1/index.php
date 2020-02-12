@@ -28,10 +28,14 @@ elseif ($_GET['action'] == 'add') {
     require DIR.'views/add.php';
 }
 
-elseif ($_GET['action'] == 'remove') {
+elseif ($_GET['action'] == 'remove_save') {
     remove();
     header('Location: '.URL);
     die();
+}
+
+elseif ($_GET['action'] == 'remove') {
+    require DIR.'views/remove.php';
 }
 
 elseif ($_GET['action'] == 'delete') {

@@ -13,3 +13,8 @@
         <li><a href="<?= URL.'?action=new_user' ?>">Pridėti naują vartotoją</a></li>
     <ul>
 <nav>
+<?php
+if (is_msg()) {
+    require __DIR__ . '/msg.php';
+}
+
