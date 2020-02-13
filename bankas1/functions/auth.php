@@ -63,3 +63,14 @@ function do_auth()
     
 
 }
+
+function make_csrf()
+{
+    $salt = 'jedfiej9230743kjsdah';
+    return md5($_SERVER['HTTP_USER_AGENT'].$salt);
+}
+
+function check_csrf($csrf)
+{
+    return ($csrf === make_csrf());
+}

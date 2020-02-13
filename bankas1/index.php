@@ -7,6 +7,7 @@ require DIR.'functions/bootstrap.php';
 
 
 if (!isset($_GET['action'])) {
+    make_csrf();
     auth();
     require DIR.'views/home.php';
 }
