@@ -7,9 +7,11 @@ require DIR.'functions/bootstrap.php';
 
 
 if (!isset($_GET['action'])) {
+    auth();
     require DIR.'views/home.php';
 }
 elseif ($_GET['action'] == 'new_user') {
+    auth();
     require DIR.'views/new.php';
 }
 elseif ($_GET['action'] == 'save_user') {
@@ -40,6 +42,20 @@ elseif ($_GET['action'] == 'remove') {
 elseif ($_GET['action'] == 'delete') {
     deleteUser();
     header('Location: '.URL);
+    die();
+}
+
+elseif ($_GET['action'] == 'login') {
+    require DIR.'views/login.php';
+}
+
+elseif ($_GET['action'] == 'do_login') {
+    header(do_auth());
+    die();
+}
+
+elseif ($_GET['action'] == 'logout') {
+    header(logout());
     die();
 }
 

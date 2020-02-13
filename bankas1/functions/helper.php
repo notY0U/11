@@ -5,7 +5,6 @@ function css($name)
     return URL.'css/'.$name.'.css';
 }
 
-
 function flash()
 {
     $_SESSION['flash'] = $_POST;

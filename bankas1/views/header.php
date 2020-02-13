@@ -15,6 +15,13 @@
 <ul class="navbar-nav">
 <li class="nav-item"><a href="<?= URL ?>">Pradinis</a></li>
 <li class="nav-item"><a href="<?= URL.'?action=new_user' ?>">Pridėti naują vartotoją</a></li>
+<?php
+if ($name = is_auth()) { ?>
+<li class="nav-item"><a href="<?= URL.'?action=logout' ?>"><i><b><?= $name ?></b></i></a></li>
+<?php
+}
+?>
+
 </ul>
 
 </nav>
