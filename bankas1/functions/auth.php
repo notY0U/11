@@ -1,11 +1,18 @@
 <?php
 
-function auth()
+function auth(...$role)
 {
     if (!isset($_SESSION['user'])) {
         header('Location: '.URL.'?action=login');
         die();
-    } 
+    }
+    if (!empty($role)) {
+        if (empty(array_intersect($role, $_SESSION['user']['role']))) {
+            set_msg('Vartotojas neturi teisių', 'warning');
+            header('Location: '.URL);
+            die();
+        }
+    }
 }
 
 function logout()
@@ -28,10 +35,11 @@ function is_auth()
 
 function do_auth()
 {
+    
+    
     $users = require DIR. 'db/user.php';
     $email = $_POST['email'];
 
-   
 
     if (!isset($users[$email])) {
         set_msg('Vartotojo nėra arba prastas slaptažodis', 'warning');
