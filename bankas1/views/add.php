@@ -7,6 +7,7 @@ require __DIR__ . '/header.php';
     Pinigų suma:<br>
     <input type="text" name="amount" value="">
     <br><br>
+    <input type="hidden" name="csrf" value="<?= make_csrf() ?>">
     <input type="submit" value="Pridėti">
 </form>
 

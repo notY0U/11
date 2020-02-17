@@ -21,6 +21,11 @@ function saveUser()
 
     $pc = $_POST['pc'] ?? 0;
 
+        if(!check_csrf($_POST['csrf'])) {
+            $error = true;
+            $msg .= ' Blogas CSRF. ';
+        }
+        
         if (name_validator($_POST['firstname'])) {
             $db[$pc]['name'] = $_POST['firstname'];
         }
@@ -64,6 +69,19 @@ function saveUser()
 function add()
 {
     $db = getData();
+
+    if(!check_csrf($_POST['csrf'])) {
+        $error = true;
+        $msg .= ' Blogas CSRF. ';
+    }
+
+    if ($error) {
+        set_msg($msg, 'warning');
+        flash();
+        return 'Location: '.URL.'?action=new_user';
+    }
+    
+
     if (isset($db[$_GET['user']])) {
         $db[$_GET['user']]['amount'] += ($_POST['amount'] ?? 0);
         setData($db);
